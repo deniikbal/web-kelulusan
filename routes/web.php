@@ -8,4 +8,4 @@ Route::get('/', function () {
 });
 
 Route::get('/cek-kelulusan', [GraduationController::class, 'index']);
-Route::post('/api/check-graduation', [GraduationController::class, 'check']);
+Route::post('/cek-kelulusan', [GraduationController::class, 'check']);

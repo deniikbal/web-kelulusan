@@ -1,101 +1,132 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hasil Cek Kelulusan</title>
+    <title>Hasil Kelulusan 2025</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         :root {
             --primary: #4361ee;
-            --success: #4cc9f0;
-            --danger: #f72585;
-            --light: #f8f9fa;
-            --dark: #212529;
+            --secondary: #3f37c9;
         }
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: 'Inter', sans-serif;
+            background: url('/img/bg.jpg') no-repeat center center fixed;
+            background-size: cover;
             min-height: 100vh;
-            display: flex;
-            align-items: center;
             padding: 2rem;
         }
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: -1;
+        }
+        .result-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 70vh;
+        }
+        .header-card {
+            color: white;
+            padding: 1.5rem;
+            border-radius: 3px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, rgba(40,167,69,0.9) 0%, rgba(33,150,83,0.9) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .bg-danger {
+            background: linear-gradient(135deg, rgba(220,53,69,0.9) 0%, rgba(200,35,51,0.9) 100%) !important;
+        }
         .result-card {
-            border: none;
-            border-radius: 12px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 3px;
+            padding: 2rem;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            background: white;
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 2.5rem;
-            transition: all 0.3s ease;
-        }
-        .result-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-        }
-        .result-icon {
-            font-size: 4rem;
-            margin-bottom: 1.5rem;
-            transition: all 0.3s ease;
-        }
-        .result-title {
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-        .result-message {
-            color: var(--dark);
-            margin-bottom: 2rem;
-        }
-        .btn-back {
-            background-color: var(--primary);
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-        .btn-back:hover {
-            background-color: #3a56d4;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+            margin-top: 10px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
         }
         .student-info {
-            background: var(--light);
-            border-radius: 8px;
-            padding: 1.5rem;
+            font-size: 1.1rem;
+            width: 100%;
+        }
+        .student-info p {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: baseline;
+        }
+        .student-info strong {
+            color: #495057;
+            min-width: 130px;
+            text-align: left;
+        }
+        .student-info strong::after {
+            content: ":";
+            margin-right: 5px;
+        }
+        .student-info span {
+            font-weight: 500;
+            margin-left: 5px;
+        }
+        .btn-back {
+            background-color: #6c757d;
+            border: none;
             margin-top: 1.5rem;
         }
     </style>
 </head>
 <body>
-    <div class="result-card">
-        @if($student)
-            <div class="text-center">
-                <i class="bi bi-check-circle-fill result-icon" style="color: var(--success);"></i>
-                <h2 class="result-title">SELAMAT!</h2>
-                <p class="result-message">Anda dinyatakan LULUS</p>
-                
-                <div class="student-info text-start">
-                                <p><strong>Nama:</strong> {{ $student->name }}</p>
-                                <p><strong>NIS:</strong> {{ $student->nis }}</p>
-                                <p><strong>NISN:</strong> {{ $student->nisn }}</p>
-                                <p><strong>Tempat/Tgl Lahir:</strong> {{ $student->tempat_lahir }}, {{ $tanggal_lahir }}</p>
-                                <p><strong>Kelas:</strong> {{ $student->classroom->name }}</p>
-                </div>
+    <div class="result-container">
+        <div style="max-width: 700px; width: 100%;">
+            <!-- Header Card -->
+            <div class="header-card @if($student && $student->keterangan == 'Lulus') bg-success @else bg-danger @endif">
+                <h2 class="mb-1">
+                    @if($student && $student->keterangan == 'Lulus')
+                        SELAMAT!
+                    @else
+                        MAAF
+                    @endif
+                </h2>
+                <p class="mb-0" style="font-size: 1.2rem">
+                    @if($student && $student->keterangan == 'Lulus')
+                        ANDA DINYATAKAN LULUS DARI SMAN 1 BANTARUJEG
+                    @else
+                        ANDA DINYATAKAN TIDAK LULUS DARI SMAN 1 BANTARUJEG
+                    @endif
+                </p>
             </div>
-        @else
-            <div class="text-center">
-                <i class="bi bi-exclamation-circle-fill result-icon" style="color: var(--danger);"></i>
-                <h2 class="result-title">DATA TIDAK DITEMUKAN</h2>
-                <p class="result-message">Silahkan cek kembali NISN dan Tanggal Lahir Anda</p>
-                <a href="/cek-kelulusan" class="btn btn-back">
-                    <i class="bi bi-arrow-left me-2"></i>Coba Lagi
-                </a>
+
+            <!-- Result Card -->
+            <div class="result-card">
+                @if($student)
+                    
+                    
+                    <div class="student-info">
+                        <p><strong>Nama</strong> <span>{{ $student->name }}</span></p>
+                        <p><strong>NISN</strong> <span>{{ $student->nisn }}</span></p>
+                        <p><strong>Kelas</strong> <span>{{ $student->classroom->name }}</span></p>
+                        <p><strong>Tempat Lahir</strong> <span>{{ $student->tempat_lahir }}</span></p>
+                        <p><strong>Tanggal Lahir</strong> <span>{{ $tanggal_lahir }}</span></p>
+                    </div>
+                @else
+                    <div class="text-center">
+                        <p class="text-dark">Silahkan cek kembali NISN dan Tanggal Lahir Anda</p>
+                        <a href="/" class="btn btn-primary btn-back">Coba Lagi</a>
+                    </div>
+                @endif
             </div>
-        @endif
+        </div>
     </div>
 </body>
 </html>
