@@ -16,22 +16,24 @@ class StudentImporter extends Importer
         return [
             ImportColumn::make('name')
                 ->requiredMapping()
-                ->rules(['required']),
+                ->rules(['required', 'max:255']),
             ImportColumn::make('nis')
                 ->requiredMapping()
-                ->rules(['required']),
+                ->rules(['required', 'max:255']),
             ImportColumn::make('nisn')
                 ->requiredMapping()
-                ->rules(['required']),
+                ->rules(['required', 'max:255']),
             ImportColumn::make('tempat_lahir')
                 ->requiredMapping()
-                ->rules(['required']),
+                ->rules(['required', 'max:255']),
             ImportColumn::make('tanggal_lahir')
                 ->requiredMapping()
                 ->rules(['required', 'date']),
             ImportColumn::make('keterangan'),
-            ImportColumn::make('classroom_id')
-                ->relationship(),
+            ImportColumn::make('classroom')
+                ->requiredMapping()
+                ->relationship()
+                ->rules(['required']),
         ];
     }
 

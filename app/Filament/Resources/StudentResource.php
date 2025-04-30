@@ -19,7 +19,7 @@ use Filament\Tables\Actions\ExportAction;
 use Filament\Tables\Actions\ImportAction;
 use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\TextColumn;
-use Forms\Form;
+use Filament\Forms\Form;
 
 class StudentResource extends Resource
 {
@@ -50,10 +50,11 @@ class StudentResource extends Resource
                         'Lulus' => 'Lulus',
                         'Tidak Lulus' => 'Tidak Lulus',
                     ])
-                    ->nullable(),
+                    ->label('Status Kelulusan')
+                    ->nullable()
+                    ->default('Lulus'),
                 Forms\Components\Select::make('classroom_id')
-                    ->label('Classroom')
-                    ->options(Classroom::all()->pluck('name', 'id'))
+                    ->label('Kelas')
                     ->searchable()
                     ->relationship('classroom', 'name')
                     ->createOptionForm([
@@ -91,25 +92,28 @@ class StudentResource extends Resource
                     ->searchable()
                     ->sortable()
                     ->label('Tanggal Lahir')
-                    ->date(),
+                    ->date('d F Y'),
                 Tables\Columns\BadgeColumn::make('keterangan')
                     ->colors([
-                        'primary' => 'Lulus',
+                        'success' => 'Lulus',
                         'danger' => 'Tidak Lulus',
-                    ]),
+                    ])
+                    ->label('Status'),
                 Tables\Columns\TextColumn::make('classroom.name')
                     ->label('Kelas'),
             ])
             ->headerActions([
                 Tables\Actions\ImportAction::make()
-                    ->importer(\App\Filament\Imports\StudentImporter::class),
+                    ->importer(StudentImporter::class)
+                    ->label('Impor Data'),
                 Tables\Actions\ExportAction::make()
-                    ->exporter(\App\Filament\Exports\StudentExporter::class),
+                    ->exporter(\App\Filament\Exports\StudentExporter::class)
+                    ->label('Ekspor Data'),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('classroom')
                     ->relationship('classroom', 'name')
-                    ->label('Classroom')
+                    ->label('Kelas')
                     ->options(Classroom::all()->pluck('name', 'id')),
             ])
             ->bulkActions([

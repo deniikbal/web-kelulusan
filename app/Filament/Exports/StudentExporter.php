@@ -22,10 +22,7 @@ class StudentExporter extends Exporter
             ExportColumn::make('tempat_lahir'),
             ExportColumn::make('tanggal_lahir'),
             ExportColumn::make('keterangan'),
-            ExportColumn::make('created_at'),
-            ExportColumn::make('updated_at'),
-            ExportColumn::make('kelas'),
-            ExportColumn::make('classroom.name'),
+            ExportColumn::make('classroom_id'),
         ];
     }
 

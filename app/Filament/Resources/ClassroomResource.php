@@ -28,7 +28,7 @@ class ClassroomResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
-                    ->label('Nama Kelas')    
+                    ->label('Nama Kelas')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('teacher')
@@ -42,6 +42,7 @@ class ClassroomResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('id'),
                 Tables\Columns\TextColumn::make('name')
                     ->sortable()
                     ->searchable(),

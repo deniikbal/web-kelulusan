@@ -16,11 +16,12 @@ class CreateStudentsTable extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('nis')->unique();
-            $table->string('nisn')->unique();
+            $table->string('nis');
+            $table->string('nisn');
             $table->string('tempat_lahir');
-            $table->date('tanggal_lahir');
+            $table->string('tanggal_lahir');
             $table->text('keterangan')->nullable();
+            $table->foreignId('classroom_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
