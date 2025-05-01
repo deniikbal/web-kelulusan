@@ -5,171 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pengumuman Kelulusan & SNBP 2025</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #4361ee;
-            --secondary: #3f37c9;
-            --danger: #f72585;
-        }
-        body {
-            font-family: 'Inter', sans-serif;
-            background: url('/img/bg.jpg') no-repeat center center fixed;
-            background-size: cover;
-            min-height: 100vh;
-            padding: 2rem;
-        }
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(5px);
-            z-index: -1;
-        }
-        .countdown-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 70vh;
-        }
-        .countdown-card {
-            background: white;
-            border-radius: 3px;
-            padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-        .info-card {
-            background: #6c757d;
-            color: white;
-            padding: 1rem;
-            border-radius: 0;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            margin-top: -1px;
-        }
-        .countdown {
-            font-size: 6rem;
-            font-weight: 700;
-            color: black;
-            line-height: 1;
-            margin: 0;
-            letter-spacing: 1.5rem;
-            padding: 0 1rem;
-        }
-
-        /* Desktop Styles */
-        .info-card h5 {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            min-height: 3rem;
-        }
-        .info-card h5 span {
-            display: block;
-        }
-
-        /* Mobile Styles */
-        @media (max-width: 768px) {
-            .countdown {
-                font-size: 3rem;
-                letter-spacing: 0.8rem;
-                padding: 0 0.5rem;
-            }
-            .countdown-card {
-                padding: 1rem;
-                width: 95%;
-                margin: 0 auto;
-            }
-            .countdown-labels {
-                font-size: 1rem;
-                padding: 0 0.5rem;
-            }
-            .info-card {
-                width: 95%;
-                margin: 0 auto;
-                padding: 0.8rem;
-            }
-            .info-card h5 {
-                font-size: 0.9rem;
-                line-height: 1.3;
-                padding: 0.3rem;
-                min-height: auto;
-            }
-        }
-        .countdown-labels {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: black;
-            text-align: center;
-            padding: 0 1.5rem;
-        }
-        .form-card {
-            max-width: 700px;
-            background-color: white;
-            border-radius: 3px;
-            padding: 2rem;
-            margin: 2rem auto;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        }
-        .form-card .form-label {
-            color: black;
-            font-weight: 500;
-        }
-        .form-card .btn-primary {
-            background-color: #6c757d;
-            border-color: #6c757d;
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
-<body>
-    <div class="countdown-container">
-        <!-- Countdown Section -->
-        <div id="countdown-section">
-            <div class="countdown-card">
-                <div class="countdown-labels">
-                    <span>Jam</span>
-                    <span>Menit</span>
-                    <span>Detik</span>
+<body class="font-roboto bg-cover bg-center min-h-screen p-8" style="background-image: url('/img/bg.jpg');">
+    <div class="absolute inset-0 bg-black/50 backdrop-blur-sm -z-10"></div>
+    <div class="flex justify-center items-center min-h-[70vh]">
+        <!-- Combined Card -->
+        <div class="max-w-3xl w-full bg-white rounded-sm shadow-lg">
+            <!-- Countdown Section -->
+            <div id="countdown-section">
+                <div class="p-8 text-center">
+                    <div class="grid grid-cols-3 gap-4 mb-4 text-lg font-extrabold text-black">
+                        <span>Jam</span>
+                        <span>Menit</span>
+                        <span>Detik</span>
+                    </div>
+                    <div class="text-6xl md:text-8xl font-extrabold text-black tracking-[0.5rem] md:tracking-[1rem] px-8 font-['Orbitron']" id="countdown">00:00:00</div>
                 </div>
-                <div class="countdown display-3 fw-bold" id="countdown">00:00:00</div>
-            </div>
-            <div class="info-card">
-                <h5 class="text-center mb-0">
-                    <span class="d-block">HASIL KELULUSAN 2025</span>
-                    <span class="d-block">DIBUKA TANGGAL 05 MEI JAM 13.00</span>
-                </h5>
-            </div>
-        </div>
-
-        <!-- Form Section (hidden initially) -->
-        <div id="form-section" style="display: none;">
-            <div class="form-card">
-                <div class="text-center mb-4">
-                    <h2 class="text-dark">PENGUMUMAN KELULUSAN 2025</h2>
-                    <p class="text-secondary">Masukkan data untuk melihat hasil</p>
-                    {{-- <a href="#" class="text-white d-block mt-3 fw-bold">Unduh Pengumuman Resmi</a> --}}
+                <div class="bg-blue-600 text-white p-4 shadow-lg rounded-t-sm">
+                    <div class="flex justify-center mb-4">
+                        <img src="/img/logo-sekolah.png" alt="Logo Sekolah" class="w-20 h-20">
+                    </div>
+                    <h5 class="flex justify-between font-bold">
+                        <span>HASIL KELULUSAN 2025</span>
+                        <span>DIBUKA TANGGAL 05 MEI 2025 JAM 13.00 WIB</span>
+                    </h5>
                 </div>
+            </div>
 
-                <form action="/cek-kelulusan" method="POST">
+            <!-- Form Section (hidden initially) -->
+            <div id="form-section" class="hidden p-8">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-black mb-2">PENGUMUMAN KELULUSAN 2025</h2>
+                    <p class="text-gray-600">Masukkan data untuk melihat hasil</p>
+                </div>
+                <form action="/cek-kelulusan" method="POST" class="space-y-6">
                     @csrf
-                    <div class="mb-3">
-                        <label class="form-label">NISN (NOMOR INDUK SISWA NASIONAL)</label>
-                        <input type="text" class="form-control" name="nisn" placeholder="Nomor Induk Siswa Nasional" required>
+                    <div class="space-y-2">
+                        <label class="block text-black font-medium">NISN (NOMOR INDUK SISWA NASIONAL)</label>
+                        <input type="text" class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" name="nisn" placeholder="Nomor Induk Siswa Nasional" required>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">TANGGAL LAHIR</label>
-                        <input type="date" class="form-control" name="tanggal_lahir" required>
+                    <div class="space-y-2">
+                        <label class="block text-black font-medium">TANGGAL LAHIR</label>
+                        <input type="date" class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" name="tanggal_lahir" required>
                     </div>
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-primary">LIHAT HASIL</button>
-                    </div>
+                    <button type="submit" class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-semibold text-lg">
+                        LIHAT HASIL
+                    </button>
                 </form>
             </div>
         </div>
@@ -177,7 +60,7 @@
 
     <script>
         // Set tanggal pengumuman
-        const announcementDate = new Date('2025-04-30 22:34:00').getTime();
+        const announcementDate = new Date('2025-05-01 09:10:00').getTime();
 
         const countdown = setInterval(function() {
             const now = new Date().getTime();

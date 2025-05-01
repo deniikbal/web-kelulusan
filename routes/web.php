@@ -9,3 +9,4 @@ Route::get('/', function () {
 
 Route::get('/cek-kelulusan', [GraduationController::class, 'index']);
 Route::post('/cek-kelulusan', [GraduationController::class, 'check']);
+Route::get('/graduation/verify/{id}', [GraduationController::class, 'verify'])->name('graduation.verify');

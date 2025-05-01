@@ -5,126 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hasil Kelulusan 2025</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #4361ee;
-            --secondary: #3f37c9;
-        }
-        body {
-            font-family: 'Inter', sans-serif;
-            background: url('/img/bg.jpg') no-repeat center center fixed;
-            background-size: cover;
-            min-height: 100vh;
-            padding: 2rem;
-        }
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(5px);
-            z-index: -1;
-        }
-        .result-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 70vh;
-        }
-        .header-card {
-            color: white;
-            padding: 1.5rem;
-            border-radius: 3px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            background: linear-gradient(135deg, rgba(40,167,69,0.9) 0%, rgba(33,150,83,0.9) 100%);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-        .bg-danger {
-            background: linear-gradient(135deg, rgba(220,53,69,0.9) 0%, rgba(200,35,51,0.9) 100%) !important;
-        }
-        .result-card {
-            background: rgba(255,255,255,0.9);
-            border-radius: 3px;
-            padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            margin-top: 10px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.3);
-        }
-        .student-info {
-            font-size: 1.1rem;
-            width: 100%;
-        }
-        .student-info p {
-            margin-bottom: 0.8rem;
-            display: flex;
-            align-items: baseline;
-        }
-        .student-info strong {
-            color: #495057;
-            min-width: 130px;
-            text-align: left;
-        }
-        .student-info strong::after {
-            content: ":";
-            margin-right: 5px;
-        }
-        .student-info span {
-            font-weight: 500;
-            margin-left: 5px;
-        }
-        .btn-back {
-            background-color: #6c757d;
-            border: none;
-            margin-top: 1.5rem;
-        }
-    </style>
 </head>
-<body>
-    <div class="result-container">
-        <div style="max-width: 700px; width: 100%;">
-            <!-- Header Card -->
-            <div class="header-card @if($student && $student->keterangan == 'Lulus') bg-success @else bg-danger @endif">
-                <h2 class="mb-1">
-                    @if($student && $student->keterangan == 'Lulus')
-                        SELAMAT!
-                    @else
-                        MAAF
-                    @endif
-                </h2>
-                <p class="mb-0" style="font-size: 1.2rem">
-                    @if($student && $student->keterangan == 'Lulus')
-                        ANDA DINYATAKAN LULUS DARI SMAN 1 BANTARUJEG
-                    @else
-                        ANDA DINYATAKAN TIDAK LULUS DARI SMAN 1 BANTARUJEG
-                    @endif
-                </p>
-            </div>
+<body class="font-sans bg-cover bg-center min-h-screen p-8" style="background-image: url('/img/bg.jpg');">
+    <div class="absolute inset-0 bg-black/50 backdrop-blur-sm -z-10"></div>
+    <div class="flex justify-center items-center min-h-[70vh]">
+        <div class="max-w-2xl w-full">
+            <!-- Combined Card -->
+            <div class="bg-white/90 backdrop-blur-sm rounded-lg shadow-lg border border-white/20 relative">
+                <!-- Shadow Blur Effect -->
+                <div class="absolute -bottom-4 left-1/2 -translate-x-1/2 w-11/12 h-4 bg-black/20 blur-md rounded-full"></div>
 
-            <!-- Result Card -->
-            <div class="result-card">
-                @if($student)
-                    
-                    
-                    <div class="student-info">
-                        <p><strong>Nama</strong> <span>{{ $student->name }}</span></p>
-                        <p><strong>NISN</strong> <span>{{ $student->nisn }}</span></p>
-                        <p><strong>Kelas</strong> <span>{{ $student->classroom->name }}</span></p>
-                        <p><strong>Tempat Lahir</strong> <span>{{ $student->tempat_lahir }}</span></p>
-                        <p><strong>Tanggal Lahir</strong> <span>{{ $tanggal_lahir }}</span></p>
+                <!-- Header Section -->
+                <div class="@if($student && $student->keterangan == 'Lulus') bg-gradient-to-r from-green-500 to-green-600 @else bg-gradient-to-r from-red-500 to-red-600 @endif text-white p-6 rounded-t-lg flex items-center justify-between">
+                    <div>
+                        <h2 class="text-2xl font-bold mb-2">
+                            @if($student && $student->keterangan == 'Lulus')
+                                SELAMAT!
+                            @else
+                                MAAF
+                            @endif
+                        </h2>
+                        <p class="text-lg">
+                            @if($student && $student->keterangan == 'Lulus')
+                                ANDA DINYATAKAN LULUS DARI SMAN 1 BANTARUJEG
+                            @else
+                                ANDA DINYATAKAN TIDAK LULUS DARI SMAN 1 BANTARUJEG
+                            @endif
+                        </p>
                     </div>
-                @else
-                    <div class="text-center">
-                        <p class="text-dark">Silahkan cek kembali NISN dan Tanggal Lahir Anda</p>
-                        <a href="/" class="btn btn-primary btn-back">Coba Lagi</a>
-                    </div>
-                @endif
+                    <img src="/img/logo.png" alt="Logo Sekolah" class="w-20 h-20">
+                </div>
+
+                <!-- Content Section -->
+                <div class="p-8">
+                    @if($student)
+                        <div class="flex gap-8">
+                            <!-- Student Information -->
+                            <div class="space-y-3 text-lg flex-1">
+                                <p class="flex items-baseline"><strong class="text-gray-700 min-w-[130px]">Nama</strong> <span class="font-medium ml-2">{{ $student->name }}</span></p>
+                                <p class="flex items-baseline"><strong class="text-gray-700 min-w-[130px]">NISN</strong> <span class="font-medium ml-2">{{ $student->nisn }}</span></p>
+                                <p class="flex items-baseline"><strong class="text-gray-700 min-w-[130px]">NIS</strong> <span class="font-medium ml-2">{{ $student->nis }}</span></p>
+                                <p class="flex items-baseline"><strong class="text-gray-700 min-w-[130px]">Kelas</strong> <span class="font-medium ml-2">{{ $student->classroom->name }}</span></p>
+                                <p class="flex items-baseline"><strong class="text-gray-700 min-w-[130px]">Tempat Lahir</strong> <span class="font-medium ml-2">{{ $student->tempat_lahir }}</span></p>
+                                <p class="flex items-baseline"><strong class="text-gray-700 min-w-[130px]">Tanggal Lahir</strong> <span class="font-medium ml-2">{{ $tanggal_lahir }}</span></p>
+                            </div>
+
+                            
+                            <!-- QR Code Section -->
+                            <div class="flex flex-col items-center justify-center">
+                                <div class="bg-white p-4 rounded-lg shadow-md">
+                                    {!! QrCode::size(150)->generate("Nama: {$student->name}\nNISN: {$student->nisn}\nTempat Lahir: {$student->tempat_lahir}\nTanggal Lahir: {$tanggal_lahir}\nKeterangan: {$student->keterangan}") !!}
+                                </div>
+                                <p class="mt-2 text-sm text-gray-600 text-center">Scan untuk verifikasi kelulusan</p>
+                            </div>
+
+                        </div>
+                    @else
+                        <div class="text-center">
+                            <p class="text-gray-700">Silahkan cek kembali NISN dan Tanggal Lahir Anda</p>
+                            <a href="/" class="mt-6 inline-block px-6 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors">Coba Lagi</a>
+                        </div>
+                    @endif
+                </div>
             </div>
         </div>
     </div>
