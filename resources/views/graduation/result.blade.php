@@ -6,7 +6,7 @@
     <title>Hasil Kelulusan 2025</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="font-sans bg-cover bg-center min-h-screen p-8" style="background-image: url('/img/bg.jpg');">
+<body class="font-sans bg-cover bg-center min-h-screen p-4 md:p-8" style="background-image: url('/img/bg.jpg');">
     <div class="absolute inset-0 bg-black/50 backdrop-blur-sm -z-10"></div>
     <div class="flex justify-center items-center min-h-[70vh]">
         <div class="max-w-2xl w-full">
@@ -33,37 +33,35 @@
                             @endif
                         </p>
                     </div>
-                    <img src="/img/logo.png" alt="Logo Sekolah" class="w-20 h-20">
+                    <img src="/img/logo.png" alt="Logo Sekolah" class="w-16 h-16 md:w-20 md:h-20">
                 </div>
 
                 <!-- Content Section -->
-                <div class="p-8">
+                <div class="p-4 md:p-8">
                     @if($student)
-                        <div class="flex gap-8">
+                        <div class="flex flex-col gap-4 md:flex-row md:gap-8">
                             <!-- Student Information -->
-                            <div class="space-y-3 text-lg flex-1">
-                                <p class="flex items-baseline"><strong class="text-gray-700 min-w-[130px]">Nama</strong> <span class="font-medium ml-2">{{ $student->name }}</span></p>
-                                <p class="flex items-baseline"><strong class="text-gray-700 min-w-[130px]">NISN</strong> <span class="font-medium ml-2">{{ $student->nisn }}</span></p>
-                                <p class="flex items-baseline"><strong class="text-gray-700 min-w-[130px]">NIS</strong> <span class="font-medium ml-2">{{ $student->nis }}</span></p>
-                                <p class="flex items-baseline"><strong class="text-gray-700 min-w-[130px]">Kelas</strong> <span class="font-medium ml-2">{{ $student->classroom->name }}</span></p>
-                                <p class="flex items-baseline"><strong class="text-gray-700 min-w-[130px]">Tempat Lahir</strong> <span class="font-medium ml-2">{{ $student->tempat_lahir }}</span></p>
-                                <p class="flex items-baseline"><strong class="text-gray-700 min-w-[130px]">Tanggal Lahir</strong> <span class="font-medium ml-2">{{ $tanggal_lahir }}</span></p>
+                            <div class="space-y-3 text-sm md:text-lg flex-1">
+                                <p class="flex items-baseline"><strong class="text-gray-700 min-w-[100px] md:min-w-[130px]">Nama</strong> <span class="font-medium ml-2">{{ ucwords(strtolower($student->name))}}</span></p>
+                                <p class="flex items-baseline"><strong class="text-gray-700 min-w-[100px] md:min-w-[130px]">NISN</strong> <span class="font-medium ml-2">{{ $student->nisn }}</span></p>
+                                <p class="flex items-baseline"><strong class="text-gray-700 min-w-[100px] md:min-w-[130px]">NIS</strong> <span class="font-medium ml-2">{{ $student->nis }}</span></p>
+                                <p class="flex items-baseline"><strong class="text-gray-700 min-w-[100px] md:min-w-[130px]">Tempat Lahir</strong> <span class="font-medium ml-2">{{ ucwords(strtolower($student->tempat_lahir))}}</span></p>
+                                <p class="flex items-baseline"><strong class="text-gray-700 min-w-[100px] md:min-w-[130px]">Tanggal Lahir</strong> <span class="font-medium ml-2">{{ ucwords(strtolower($tanggal_lahir)) }}</span></p>
+                                <p class="flex items-baseline"><strong class="text-gray-700 min-w-[100px] md:min-w-[130px]">Kelas</strong> <span class="font-medium ml-2">{{ $student->classroom->name }}</span></p>
                             </div>
 
-                            
                             <!-- QR Code Section -->
-                            <div class="flex flex-col items-center justify-center">
-                                <div class="bg-white p-4 rounded-lg shadow-md">
-                                    {!! QrCode::size(150)->generate("Nama: {$student->name}\nNISN: {$student->nisn}\nTempat Lahir: {$student->tempat_lahir}\nTanggal Lahir: {$tanggal_lahir}\nKeterangan: {$student->keterangan}") !!}
+                            <div class="flex flex-col items-center justify-center md:order-last">
+                                <div class="bg-white p-2 md:p-4 rounded-lg shadow-md">
+                                    {!! QrCode::size(100)->generate("Nama: {$student->name}\nNISN: {$student->nisn}\nTempat Lahir: {$student->tempat_lahir}\nTanggal Lahir: {$tanggal_lahir}\nKeterangan: {$student->keterangan}") !!}
                                 </div>
-                                <p class="mt-2 text-sm text-gray-600 text-center">Scan untuk verifikasi kelulusan</p>
+                                <p class="mt-2 text-xs md:text-sm text-gray-600 text-center">Scan untuk verifikasi kelulusan</p>
                             </div>
-
                         </div>
                     @else
                         <div class="text-center">
                             <p class="text-gray-700">Silahkan cek kembali NISN dan Tanggal Lahir Anda</p>
-                            <a href="/" class="mt-6 inline-block px-6 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors">Coba Lagi</a>
+                            <a href="/" class="mt-6 inline-block px-4 py-2 md:px-6 md:py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors">Coba Lagi</a>
                         </div>
                     @endif
                 </div>
