@@ -11,6 +11,7 @@ use Filament\Tables;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
+use Filament\Navigation\NavigationItem;
 
 class GradeResource extends Resource
 {
@@ -39,7 +40,7 @@ class GradeResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('student.name')->label('Nama Siwa'),
-                Tables\Columns\TextColumn::make('student.classroom.name')->label('Kelas'), // Updated line
+                Tables\Columns\TextColumn::make('student.classroom.name')->label('Kelas'),
                 Tables\Columns\TextColumn::make('subject.name')->label('Matpel'),
                 Tables\Columns\TextColumn::make('grade')->label('Nilai'),
             ])
@@ -58,6 +59,18 @@ class GradeResource extends Resource
             'index' => Pages\ListGrades::route('/'),
             'create' => Pages\CreateGrade::route('/create'),
             'edit' => Pages\EditGrade::route('/{record}/edit'),
+            'import-export' => Pages\ImportExportGrades::route('/import-export'),
+        ];
+    }
+
+    public static function getNavigationItems(): array
+    {
+        return [
+            ...parent::getNavigationItems(),
+            NavigationItem::make('Import/Export Nilai')
+                ->url(fn (): string => static::getUrl('import-export'))
+                ->icon('heroicon-o-arrow-up-tray')
+                ->sort(3),
         ];
     }
 }

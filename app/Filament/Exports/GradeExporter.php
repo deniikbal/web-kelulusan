@@ -3,39 +3,33 @@
 namespace App\Filament\Exports;
 
 use App\Models\Student;
-use App\Models\Classroom;
 use Filament\Actions\Exports\ExportColumn;
 use Filament\Actions\Exports\Exporter;
 use Filament\Actions\Exports\Models\Export;
 
-class StudentExporter extends Exporter
+class GradeExporter extends Exporter
 {
     protected static ?string $model = Student::class;
 
     public static function getColumns(): array
     {
         return [
-            ExportColumn::make('id')
-                ->label('ID Siswa'),
+            ExportColumn::make('nis')
+                ->label('NIS'),
             ExportColumn::make('name')
                 ->label('Nama Siswa'),
             ExportColumn::make('classroom.name')
                 ->label('Kelas'),
-            ExportColumn::make('')
+            ExportColumn::make('nilai')
                 ->label('Nilai')
-                ->state(''),
+                ->state(function (Student $record): string {
+                    return '';
+                }),
         ];
     }
 
     public static function getCompletedNotificationBody(Export $export): string
     {
-        return 'Export template nilai telah selesai dengan ' . number_format($export->successful_rows) . ' data siswa.';
-    }
-
-    protected static function modifyQueryForExport($query, array $data): void
-    {
-        if (isset($data['classroomId'])) {
-            $query->where('classroom_id', $data['classroomId']);
-        }
+        return 'Template nilai berhasil diekspor dan siap diisi.';
     }
 }
