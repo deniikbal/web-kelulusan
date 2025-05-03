@@ -6,7 +6,7 @@
     <title>Hasil Kelulusan 2025</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="font-sans bg-cover bg-center min-h-screen p-4 md:p-8" style="background-image: url('/img/bg.jpg');">
+<body class="font-sans min-h-screen p-4 md:p-8" id="result-page">
     <div class="absolute inset-0 bg-black/50 backdrop-blur-sm -z-10"></div>
     <div class="flex justify-center items-center min-h-[70vh]">
         <div class="max-w-2xl w-full">
@@ -53,7 +53,7 @@
                             <!-- QR Code Section -->
                             <div class="flex flex-col items-center justify-center md:order-last">
                                 <div class="bg-white p-2 md:p-4 rounded-lg shadow-md">
-                                    {!! QrCode::size(100)->generate("Nama: {$student->name}\nNISN: {$student->nisn}\nTempat Lahir: {$student->tempat_lahir}\nTanggal Lahir: {$tanggal_lahir}\nKeterangan: {$student->keterangan}") !!}
+                                    {!! QrCode::size(150)->generate("Nama: {$student->name}\nNISN: {$student->nisn}\nTempat Lahir: {$student->tempat_lahir}\nTanggal Lahir: {$tanggal_lahir}") !!}
                                 </div>
                                 <p class="mt-2 text-xs md:text-sm text-gray-600 text-center">Scan untuk verifikasi kelulusan</p>
                             </div>
@@ -70,3 +70,19 @@
     </div>
 </body>
 </html>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const page = document.getElementById('result-page');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    page.style.backgroundImage = "url('/img/bg.jpg')";
+                    page.classList.add('bg-cover', 'bg-center');
+                    observer.unobserve(page);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        observer.observe(page);
+    });
+</script>
