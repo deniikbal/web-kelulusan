@@ -47,7 +47,7 @@ class ImportExportGrades extends Page
                     ->options($this->subjects->pluck('name', 'id'))
                     ->required(),
             ])
-            ->exporter(fn() => new GradeExporter())
+            ->exporter(GradeExporter::class) // Pass the class name directly
             ->action(function (array $data, ExportAction $action) {
                 $this->classroomId = $data['classroomId'];
                 $this->subjectId = $data['subjectId'];
@@ -56,8 +56,7 @@ class ImportExportGrades extends Page
                     ->where('classroom_id', $this->classroomId)
                     ->get();
 
-                return (new GradeExporter())
-                    ->records($students)
+                return (new GradeExporter($students, $this->classroomId, $this->subjectId))
                     ->fileName('template_nilai_kelas_' . $this->classroomId . '_matpel_' . $this->subjectId);
             });
 
